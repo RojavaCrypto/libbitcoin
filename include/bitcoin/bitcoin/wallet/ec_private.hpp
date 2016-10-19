@@ -54,6 +54,8 @@ public:
     static const uint16_t mainnet;
     static const uint8_t compressed_sentinel;
 
+    static const uint16_t testnet;
+
     static inline uint8_t to_address_prefix(uint16_t version)
     {
         return version & 0x00FF;
