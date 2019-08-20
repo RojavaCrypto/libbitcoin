@@ -337,7 +337,7 @@ test_libbitcoin_system_test_SOURCES = \
     test/message/transaction.cpp \
     test/message/verack.cpp \
     test/message/version.cpp \
-    test/unicode/unicode.cpp \
+    #test/unicode/unicode.cpp \
     test/unicode/unicode_istream.cpp \
     test/unicode/unicode_ostream.cpp \
     test/utility/binary.cpp \
