@@ -89,6 +89,7 @@ struct secp256k1_context_struct {
     secp256k1_callback error_callback;
 };
 
+int secp256k1_eckey_pubkey_serialize(secp256k1_ge *elem, unsigned char *pub, size_t *size, int compressed);
 
 
 
@@ -511,6 +512,13 @@ mlsag_signature mlsag_sign(const scalar_list& secrets,
                 secp256k1_ecmult(&context->ecmult_ctx,
                     &point, &point, &challenge, &salt);
 
+                size_t size;
+                secp256k1_eckey_pubkey_serialize(
+                    &public_key,
+                    const_cast<unsigned char*>(left_points[i][j].point().data()),
+                    &size,
+                    1);
+
                 ///// left is done
 
                 //right_points[i][j] =
@@ -550,6 +558,13 @@ mlsag_signature mlsag_sign(const scalar_list& secrets,
                 secp256k1_ge_set_gej(&public_key, &result);
                 secp256k1_gej_add_ge(&point, &point, &public_key);
 
+                secp256k1_ge_set_gej(&public_key, &point);
+
+                secp256k1_eckey_pubkey_serialize(
+                    &public_key,
+                    const_cast<unsigned char*>(right_points[i][j].point().data()),
+                    &size,
+                    1);
             }
         }
         std::cout << "Destroying contexts..." << std::endl;
